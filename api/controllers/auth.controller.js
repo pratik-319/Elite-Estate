@@ -27,15 +27,15 @@ export const signin = async (req, res, next) => {
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     const validUSer = await User.findOne({ email });
-    if (!validUSer) return next(errorHandler(404, "User not found!"));
+    if (!validUSer) return next(errorHandler(404, 'User not found!'));
     const validPassword = bcrypt.compareSync(password, validUSer.password);
-    if (!validPassword) return next(errorHandler(401, "Invalid password"));
+    if (!validPassword) return next(errorHandler(401, 'Invalid password / Wrong credentials'));
     //to do authen tication we use brower cookie store in the cookie JWT
 
     const token = jwt.sign({ id: validUSer._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUSer._doc;
     res
-      .cookie("acceess_token", token, { httpOnly: true })
+      .cookie('acceess_token', token, { httpOnly: true })
       .status(200)
       .json(rest);
     //cookie inside a brower
