@@ -1,14 +1,14 @@
 import User from "../modules/user.model.js";
 import { errorHandler } from "../utils/error.js";
-import bcryptjs from "bcryptjs";
-
+import bcryptjs from 'bcryptjs';
 
 export const test = (req, res) => {
   res.json({ message: "Hello world user controller" });
 };
 
 export const updateUser = async (req, res, next) => {
-  if (req.user.id != req.params.id) return next(errorHandler(401, "you can't"));
+  if (req.user.id != req.params.id)
+    return next(errorHandler(401, "you can only update your own account!"));
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -24,12 +24,13 @@ export const updateUser = async (req, res, next) => {
           avatar: req.body.avatar,
         },
       },
-      { new: true }
+      { new: true }  
     );
 
-    const { password, ...rest } = updateUser._doc;
+    const { password, ...rest } = updatedUser._doc;
 
     res.status(200).json(rest);
+    
   } catch (error) {
     next(error);
   }
