@@ -6,12 +6,11 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "wadmini-a7ac0.firebaseapp.com",
-  projectId: "wadmini-a7ac0",
-  storageBucket: "wadmini-a7ac0.appspot.com",
-  messagingSenderId: "592662601782",
-  appId: "1:592662601782:web:bee331bf3b4349dc8a7897",
-  measurementId: "G-MDMHZHML37"
+  authDomain: "elite-estate-1c77e.firebaseapp.com",
+  projectId: "elite-estate-1c77e",
+  storageBucket: "elite-estate-1c77e.appspot.com",
+  messagingSenderId: "87929769910",
+  appId: "1:87929769910:web:a0d4c9ce9f209eb627fb17"
 };
 
 // Initialize Firebase
