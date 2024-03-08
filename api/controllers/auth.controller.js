@@ -4,6 +4,7 @@ import { errorHandler } from "../utils/error.js";
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 import jwt from "jsonwebtoken";
 
+
 export const signup = async (req, res, next) => {
   //res.json({ message: "Hello world auth controller" });
   const { username, email, password } = req.body;
@@ -24,7 +25,7 @@ export const signin = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
+  // const newUser = new User({ username, email, password: hashedPassword });
   try {
     const validUSer = await User.findOne({ email });
     if (!validUSer) return next(errorHandler(404, 'User not found!'));
