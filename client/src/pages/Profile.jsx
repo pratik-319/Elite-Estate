@@ -32,13 +32,27 @@ export default function Profile() {
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
-  
+
+
+  const handleListingDelete=async(listingId)=>{
+    try {
+      const res=await fetch(`api/listing/delete/${listingId}`,{method:'DELETE'},);
+      const data=await res.json();
+      if(data.success==false){
+        console.log(data.message);
+        return ;
+      }
+      setUserListings((prev)=>prev.filter((listing)=>listing._id!==listingId))
+    } catch (error) {
+        console.log(error.message);
+    }
+  }
   const handleShowListings= async()=>{
     try{
       setShowListingsError(false);
-      
+      // console.log(currentUser._id);
       const res=await fetch(`/api/user/listings/${currentUser._id}`); 
-      const data=await res.json();
+      const data=await res.json();  
       if(data.success===false){
         setShowListingsError(true);
         return ;
@@ -227,7 +241,7 @@ export default function Profile() {
                 <Link to={`/listing/${listing._id}`}><img src={listing.imageUrls[0]} alt="" className='h-16 w-16 object-contain ' /></Link>
                 <Link className='text-slate-700 font-semibold hover:underline truncate' to={`/listing/${listing._id}`}><p >{listing.name}</p></Link>
                 <div className='flex flex-col item-center'>
-                  <button className='text-red-700 uppercase'>
+                  <button className='text-red-700 uppercase' onClick= {()=>handleListingDelete(listing._id)}>
                     Delete
                   </button>
                   <button className='text-green-700 uppercase'>
