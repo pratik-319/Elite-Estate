@@ -34,32 +34,32 @@ export default function Profile() {
   const dispatch = useDispatch();
 
 
-  const handleListingDelete = async (listingId) => {
+  const handleListingDelete=async(listingId)=>{
     try {
-      const res = await fetch(`api/listing/delete/${listingId}`, { method: 'DELETE' },);
-      const data = await res.json();
-      if (data.success == false) {
+      const res=await fetch(`api/listing/delete/${listingId}`,{method:'DELETE'},);
+      const data=await res.json();
+      if(data.success==false){
         console.log(data.message);
-        return;
+        return ;
       }
-      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId))
+      setUserListings((prev)=>prev.filter((listing)=>listing._id!==listingId))
     } catch (error) {
-      console.log(error.message);
+        console.log(error.message);
     }
   }
-  const handleShowListings = async () => {
-    try {
+  const handleShowListings= async()=>{
+    try{
       setShowListingsError(false);
       // console.log(currentUser._id);
-      const res = await fetch(`/api/user/listings/${currentUser._id}`);
-      const data = await res.json();
-      if (data.success === false) {
+      const res=await fetch(`/api/user/listings/${currentUser._id}`); 
+      const data=await res.json();  
+      if(data.success===false){
         setShowListingsError(true);
-        return;
+        return ;
       }
       setUserListings(data);
 
-    } catch (error) {
+    }catch(error){
       setShowListingsError(true);
     }
   }
@@ -242,21 +242,21 @@ export default function Profile() {
                 <Link to={`/listing/${listing._id}`}><img src={listing.imageUrls[0]} alt="" className='h-16 w-16 object-contain ' /></Link>
                 <Link className='text-slate-700 font-semibold hover:underline truncate' to={`/listing/${listing._id}`}><p >{listing.name}</p></Link>
                 <div className='flex flex-col item-center'>
-                  <button className='text-red-700 uppercase' onClick={() => handleListingDelete(listing._id)}>
+                  <button className='text-red-700 uppercase' onClick= {()=>handleListingDelete(listing._id)}>
                     Delete
                   </button>
 
                   <Link to={`/update-listing/${listing._id}`}>
                     <button className='text-green-700 uppercase'>
-                      Edit
-                    </button>
+                    Edit
+                  </button>
                   </Link>
                 </div>
               </div>
             ))}
           </div>}
-      </div>
+      </div> 
 
     </div>
-  );
+    );
 }
