@@ -1,9 +1,25 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import Carousel from './client/src/components/Carousel.jsx'
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 
 
 export default function Home() {
+  const carouselData = [  
+    { id: 1, image: '../images/house1.jpg'},
+    { id: 2, image: '../images/house2.jpg' },
+    { id: 3, image: '../images/house3.jpg' },
+  ];
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <div>
       {/* top */}
@@ -28,10 +44,10 @@ export default function Home() {
 
       </div>
       
-       
-      
-      
-      
+
+
+
+
     </div>
   );
 }
