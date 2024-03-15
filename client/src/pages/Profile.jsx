@@ -16,6 +16,7 @@ import {
   deleteUserSuccess,
   signOutUserStart,
 } from '../redux/user/userSlice';
+
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -26,34 +27,11 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-<<<<<<< HEAD
-   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   // const [showListingsError, setShowListingsError] = useState(false);
   // const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
   
-=======
-  // const [updateSuccess, setUpdateSuccess] = useState(false);
-  const [showListingsError, setShowListingsError] = useState(false);
-  const [userListings, setUserListings] = useState([]);
-  // const dispatch = useDispatch();
-  const handleShowListings= async()=>{
-    try{
-      setShowListingsError(false);
-      
-      const res=await fetch(`/api/user/listings/${currentUser.id}`);
-      const data=await res.json();
-      if(data.success===false){
-        setShowListingsError(true);
-        return ;
-      }
-
-    }catch(error){
-      setShowListingsError(true);
-    }
-  }
->>>>>>> 6fd3094849ead74b13b391ff65f1f20e7414f112
-
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -109,6 +87,38 @@ export default function Profile() {
       setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(data.message));
     }
   };
 
@@ -175,43 +185,16 @@ export default function Profile() {
       </form>
 
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        <span onClick = {handleDeleteUser} className="text-red-700 cursor-pointer">Delete account</span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign out</span>
       </div>
 
-<<<<<<< HEAD
+
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p> 
 
-=======
-      <p>
-        <button className='text-green-700 w-full' onClick={handleShowListings}>Show Listings</button>
-      </p>
-      <p className='text-red-700 mt-5'>{showListingsError ? 'Error showing listing' : ''}</p>
-      {userListings.length >0 &&
-      
-      
-
-      <div className="flex flex-col gap-4">
-        <h1 className="text-center mt-7 text-2xl font semibold">Your Listings</h1>
-       { userListings.map((listing)=>(
-        <div key={ listing._id} className='border rounded-lg p-3 flex justify-between items-center gap-4'>
-          <Link to={`/listing/${listing._id}`}><img src={listing.imageUrls[0]} alt="" className='h-16 w-16 object-contain '/></Link>
-          <Link className='text-slate-700 font-semibold hover:underline truncate' to={`/listing/${listing._id}` }><p >{listing.name}</p></Link>
-          <div className='flex flex-col item-center'>
-            <button className='text-red-700 uppercase'>
-              Delete
-            </button>
-            <button className='text-green-700 uppercase'>
-              Edit
-            </button>
-          </div>
-        </div>
-      ))}
-      </div>}
->>>>>>> 6fd3094849ead74b13b391ff65f1f20e7414f112
     </div>
   );
 }
