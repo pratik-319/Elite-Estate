@@ -15,15 +15,15 @@ export default function SignUp() {
       [e.target.id]: e.target.value,
     });
   };
-  console.log(formData);
+  // console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData),
       });
