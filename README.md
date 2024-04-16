@@ -1,10 +1,10 @@
 # Elite Estate - A Real Estate Website
 
  - Developed a MERN stack Real Estate website that specializes in helping clients buy, sell and rent properties in the most desirable neighborhoods.
- - • Including user registration, login, and personalized search functionalities.
- - • User can manage property listings for sale or rent, providing an intuitive and feature-rich experience.
- - • Implemented a robust filtering system for refining searches by city, amenities, and price range.
- - • Designed an engaging property details page for effective visual presentation and information display.
+ -  Including user registration, login, and personalized search functionalities.
+ -  User can manage property listings for sale or rent, providing an intuitive and feature-rich experience.
+ -  Implemented a robust filtering system for refining searches by city, amenities, and price range.
+ -  Designed an engaging property details page for effective visual presentation and information display.
 
 ## Technologies Used
 
